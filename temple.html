@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Temple Dance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --gold:#c9a84c;--gold-light:#e8c97a;--gold-dark:#8b6914;
+      --dark-bg:#0d0a06;--dark-section:#120e08;--dark-alt:#1a1409;
+      --text-light:#f0e6d0;--text-muted:#b09870;--border-gold:rgba(201,168,76,0.35)
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--dark-bg);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.85;overflow-x:hidden}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:var(--dark-bg)}
+    ::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:3px}
+
+    /* ══ NAVBAR ══ */
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(13,10,6,.97);border-bottom:1px solid var(--border-gold);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:80px;backdrop-filter:blur(10px)}
+    .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+    .nav-logo img{height:54px;border-radius:50%;object-fit:cover}
+    .nav-logo-text{font-family:'Cinzel Decorative',serif;font-size:15px;color:var(--gold);letter-spacing:2px;line-height:1.3}
+    .nav-links{display:flex;gap:34px;list-style:none}
+    .nav-links a{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--text-muted);text-decoration:none;letter-spacing:2.5px;text-transform:uppercase;transition:color .3s;position:relative;padding-bottom:4px}
+    .nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-links a:hover::after{transform:scaleX(1)}
+
+    /* ══ HERO ══ */
+    /* ══════════════════════════════════════
+   HERO — Full Redesign with Back Designs
+    ══════════════════════════════════════ */
+    .hero {
+    height: 100vh;
+    min-height: 700px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+    }
+
+    /* Background temple image */
+    .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('bg.png');
+    background-size: cover;
+    background-position: center top;
+    filter: brightness(.28) saturate(.65);
+    z-index: 0;
+    }
+
+    /* Dark gradient overlay */
+    .hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        to bottom,
+        rgba(13,10,6,.65) 0%,
+        rgba(13,10,6,.05) 38%,
+        rgba(13,10,6,.05) 62%,
+        rgba(13,10,6,.78) 100%
+    );
+    }
+
+    /* Horizontal ornament lines */
+    .hero-orn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 55%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--gold-dark),
+        var(--gold),
+        var(--gold-dark),
+        transparent
+    );
+    opacity: .5;
+    z-index: 2;
+    }
+    .hero-orn.top { top: 110px; }
+    .hero-orn.bot { bottom: 110px; }
+
+    /* ── LEFT IMAGE: Logo — vertically centered ── */
+    .hero-left {
+    position: absolute;
+    left: 55px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 260px;
+    }
+
+    .hero-left::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 330px;
+    height: 330px;
+    border-radius: 50%;
+    background: radial-gradient(
+        ellipse,
+        rgba(201,168,76,.13) 0%,
+        rgba(201,168,76,.05) 45%,
+        transparent 72%
+    );
+    box-shadow:
+        0 0 0 1px rgba(201,168,76,.22),
+        0 0 0 12px rgba(201,168,76,.05),
+        0 0 0 24px rgba(201,168,76,.03),
+        0 0 0 36px rgba(201,168,76,.02);
+    z-index: 0;
+    }
+
+    .hero-left::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(22.5deg);
+    width: 288px;
+    height: 288px;
+    border-radius: 50%;
+    border: 1px dashed rgba(201,168,76,.28);
+    z-index: 0;
+    }
+
+    .hero-left img {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
+    border: 2px solid rgba(201,168,76,.35);
+    box-shadow:
+        0 0 0 6px rgba(201,168,76,.08),
+        0 0 40px rgba(201,168,76,.25),
+        inset 0 0 20px rgba(0,0,0,.3);
+    object-fit: cover;
+    }
+
+    /* ── RIGHT IMAGE: Nataraja — same vertical center ── */
+    .hero-right {
+    position: absolute;
+    right: 55px;
+    top: 50%;
+    transform: translateY(-50%);   /* ← matches left exactly */
+    z-index: 3;
+    width: 255px;
+    }
+
+    /* Outer prabhavali arch — centered around image */
+    .hero-right::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 310px;
+    height: 330px;
+    border-radius: 50%;
+    background: radial-gradient(
+        ellipse,
+        rgba(201,168,76,.12) 0%,
+        rgba(201,168,76,.05) 45%,
+        transparent 70%
+    );
+    border: 1px solid rgba(201,168,76,.22);
+    box-shadow:
+        0 0 0 10px rgba(201,168,76,.04),
+        0 0 0 20px rgba(201,168,76,.02);
+    z-index: 0;
+    }
+
+    /* Inner arch ring */
+    .hero-right::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(22.5deg);
+    width: 268px;
+    height: 268px;
+    border-radius: 50%;
+    border: 1px dashed rgba(201,168,76,.2);
+    z-index: 0;
+    }
+
+    .hero-right img {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    filter:
+        drop-shadow(0 0 30px rgba(201,168,76,.55))
+        drop-shadow(0 0 70px rgba(201,168,76,.2))
+        sepia(18%)
+        contrast(1.1);
+    }
+
+
+
+    /* Center content area */
+    .hero-content {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    padding: 20px;
+    max-width: 680px;
+    }
+
+    .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    }
+
+    .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 4px;
+    text-shadow: 0 0 80px rgba(201,168,76,.38);
+    line-height: 1.15;
+    margin-bottom: 22px;
+    }
+
+    .hero-sub {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    margin-bottom: 46px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+    .hero-div {
+    width: 180px;
+    height: 1px;
+    margin: 0 auto 46px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .hero-cta {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--dark-bg);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    padding: 15px 44px;
+    transition: all .3s;
+    box-shadow: 0 4px 25px rgba(201,168,76,.35);
+    }
+
+    .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 35px rgba(201,168,76,.55);
+    }
+
+    
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+    .hero-left  { width: 210px; left: 28px; }
+    .hero-right { width: 195px; right: 22px; }
+    .hero-left::before  { width: 270px; height: 270px; }
+    .hero-left::after   { width: 235px; height: 235px; }
+    .hero-right::before { width: 250px; height: 260px; }
+    .hero-right::after  { width: 210px; height: 210px; }
+    }
+
+    @media (max-width: 900px) {
+    .hero-left, .hero-right { display: none; }
+}
+
+
+    /* ══ SECTIONS ══ */
+    section{padding:100px 0}
+    .container{max-width:1160px;margin:0 auto;padding:0 40px}
+    .sec-eye{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;text-align:center}
+    .sec-title{font-family:'Cinzel',serif;font-size:clamp(22px,3vw,34px);font-weight:700;color:var(--gold-light);letter-spacing:3px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+    .sec-rule{width:100px;height:2px;margin:0 auto 60px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+    /* ══ ABOUT ══ */
+    #about{background:var(--dark-section)}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+    .img-frame{position:relative}
+    .img-frame.right::before{content:'';position:absolute;top:16px;left:16px;right:-16px;bottom:-16px;border:1px solid var(--border-gold);z-index:0}
+    .img-frame.left::after{content:'';position:absolute;top:-12px;left:-12px;right:12px;bottom:12px;border:1px solid var(--border-gold);z-index:0}
+    .img-frame.charity-f::before{content:'';position:absolute;top:14px;right:-14px;bottom:-14px;left:14px;border:1px solid var(--border-gold);z-index:0}
+    .img-frame.contact-f::before{content:'';position:absolute;top:14px;left:14px;right:-14px;bottom:-14px;border:1px solid var(--border-gold);z-index:0}
+    .img-frame img{width:100%;display:block;position:relative;z-index:1;filter:sepia(8%) contrast(1.05)}
+    .body-text p{color:var(--text-muted);font-size:15.5px;line-height:2;margin-bottom:22px;letter-spacing:.3px}
+    .body-text p:last-child{margin-bottom:0}
+
+    /* ══ FOUNDER ══ */
+    #founder{background:var(--dark-alt)}
+    .founder-grid{display:grid;grid-template-columns:340px 1fr;gap:70px;align-items:start}
+    .fname{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--gold-light);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+    .ftag{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;opacity:.85}
+    .ftext p{color:var(--text-muted);font-size:15px;line-height:1.95;margin-bottom:18px}
+    .awards{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+    .atag{font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-dark);border:1px solid var(--border-gold);padding:5px 12px;background:rgba(201,168,76,.06)}
+
+    /* ══ ACTIVITIES ══ */
+    #activities{background:var(--dark-section)}
+    .tabs{display:flex;margin-bottom:60px;border:1px solid var(--border-gold)}
+    .tab-btn{flex:1;padding:16px 20px;font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);background:transparent;border:none;border-right:1px solid var(--border-gold);cursor:pointer;transition:all .3s}
+    .tab-btn:last-child{border-right:none}
+    .tab-btn:hover,.tab-btn.active{color:var(--dark-bg);background:linear-gradient(135deg,var(--gold-light),var(--gold))}
+    .panel{display:none}.panel.active{display:block}
+    .intro-p{color:var(--text-muted);font-size:15.5px;line-height:2;margin-bottom:28px}
+    .sub-hdr{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border-gold)}
+    .temple-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 40px;margin-bottom:40px}
+    .temple-list li{font-size:14px;color:var(--text-muted);padding-left:18px;position:relative;line-height:1.7}
+    .temple-list li::before{content:'◆';position:absolute;left:0;top:2px;color:var(--gold-dark);font-size:9px}
+    .hi-boxes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+    .hi-box{border:1px solid var(--border-gold);padding:24px 20px;background:rgba(201,168,76,.04)}
+    .hi-box::before{content:'❝';display:block;font-size:28px;color:var(--gold-dark);margin-bottom:10px;line-height:1}
+    .hi-box p{font-size:14px;color:var(--text-muted);line-height:1.8;font-style:italic}
+    .pillars{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;margin-bottom:50px}
+    .pillar{border:1px solid var(--border-gold);padding:32px 24px;text-align:center;background:rgba(201,168,76,.03);transition:background .3s}
+    .pillar:hover{background:rgba(201,168,76,.07)}
+    .p-icon{font-size:32px;margin-bottom:16px}
+    .p-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+    .p-desc{font-size:14px;color:var(--text-muted);line-height:1.8}
+    .mile-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:40px}
+    .mile{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--text-muted);line-height:1.7}
+    .mile::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:2px}
+    .mile strong{color:var(--text-light)}
+    .rec-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .rec-list li{font-size:14px;color:var(--text-muted);line-height:1.7;padding-left:18px;position:relative}
+    .rec-list li::before{content:'✦';position:absolute;left:0;color:var(--gold-dark);font-size:10px;top:4px}
+    .rec-list strong{color:var(--gold-light)}
+    .charity-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
+    .ch-pts{list-style:none}
+    .ch-pts li{font-size:14.5px;color:var(--text-muted);line-height:1.9;padding:14px 0 14px 24px;border-bottom:1px solid rgba(201,168,76,.12);position:relative}
+    .ch-pts li:last-child{border-bottom:none}
+    .ch-pts li::before{content:'●';position:absolute;left:0;color:var(--gold);font-size:8px;top:20px}
+
+    /* ══ TALKS ══ */
+    #talks{background:var(--dark-alt)}
+    .talks-img{max-width:700px;margin:0 auto 70px;position:relative}
+    .talks-img::before{content:'';position:absolute;inset:-8px;border:1px solid var(--border-gold);pointer-events:none}
+    .talks-img img{width:100%;display:block}
+    .quotes-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+    .q-card{border:1px solid var(--border-gold);padding:36px 30px;background:rgba(201,168,76,.03);position:relative;overflow:hidden}
+    .q-card::before{content:'\201C';font-family:'Cinzel Decorative',serif;font-size:120px;color:rgba(201,168,76,.06);line-height:1;position:absolute;top:-10px;left:16px;pointer-events:none}
+    .q-text{font-size:15px;color:var(--text-muted);font-style:italic;line-height:1.95;margin-bottom:20px;position:relative;z-index:1}
+    .q-author{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase}
+    .q-author::before{content:'— '}
+
+    /* ══ GALLERY ══ */
+    #gallery{background:var(--dark-section)}
+    .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,260px);gap:14px}
+    .gal-item{overflow:hidden;position:relative;cursor:pointer}
+    .gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s,filter .4s;filter:sepia(10%) brightness(.88)}
+    .gal-item:hover img{transform:scale(1.07);filter:none}
+    .gal-item::after{content:'';position:absolute;inset:0;border:2px solid transparent;transition:border-color .3s}
+    .gal-item:hover::after{border-color:var(--gold)}
+
+    /* ══ CONTACT ══ */
+    #contact{background:var(--dark-alt)}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .c-label{font-family:'Cinzel',serif;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;margin-top:30px}
+    .c-label:first-of-type{margin-top:0}
+    .c-val{font-size:17px;color:var(--text-light);line-height:1.7}
+    .c-val a{color:var(--gold-light);text-decoration:none}
+    .c-val a:hover{color:var(--gold);text-decoration:underline}
+    .c-enq{font-size:14px;color:var(--text-muted);line-height:1.9;margin-bottom:36px;font-style:italic}
+
+    /* ══ FOOTER ══ */
+    footer{background:#080604;border-top:1px solid var(--border-gold);padding:50px 40px;text-align:center}
+    .f-logo{height:70px;margin-bottom:20px;border-radius:50%;object-fit:cover}
+    .f-title{font-family:'Cinzel Decorative',serif;font-size:16px;color:var(--gold);letter-spacing:3px;margin-bottom:16px}
+    .f-rule{width:120px;height:1px;margin:0 auto 20px;background:linear-gradient(90deg,transparent,var(--gold-dark),transparent)}
+    .f-copy{font-size:13px;color:rgba(176,152,112,.5);letter-spacing:1px;font-family:'Cinzel',serif}
+
+    /* ══ RESPONSIVE ══ */
+    @media(max-width:1100px){.hero-left{width:220px;left:24px}.hero-right{width:190px;right:22px}}
+    @media(max-width:900px){
+      .hero-left,.hero-right{display:none}
+      .two-col,.founder-grid,.charity-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+      .pillars,.mile-grid,.rec-list,.temple-list,.quotes-grid,.hi-boxes{grid-template-columns:1fr}
+      .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,200px)}
+    }
+    @media(max-width:600px){
+      nav{padding:0 16px;height:64px}.nav-links{display:none}
+      section{padding:70px 0}.container{padding:0 20px}
+      .gal-grid{grid-template-columns:1fr;grid-template-rows:repeat(6,220px)}
+      .tabs{flex-direction:column}.tab-btn{border-right:none;border-bottom:1px solid var(--border-gold)}
+      .tab-btn:last-child{border-bottom:none}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="logo.jpeg" alt="The Temple Dance Logo"/>
+    <span class="nav-logo-text">THE TEMPLE<br>DANCE</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#activities">Activities</a></li>
+    <li><a href="#talks">Legendary Talks</a></li>
+    <li><a href="#gallery">Gallery &amp; Links</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-orn top"></div>
+  <div class="hero-orn bot"></div>
+  <div class="hero-left">
+    <img src="logo.jpeg" alt="The Temple Dance Logo"/>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Classical Dance &nbsp;&middot;&nbsp; Temple Heritage &nbsp;&middot;&nbsp; Cultural Revival</p>
+    <h1 class="hero-title">The Temple Dance</h1>
+    <p class="hero-sub">Reviving India&#8217;s Sacred Temple Heritage Through Classical Dance</p>
+    <div class="hero-div"></div>
+    <a href="#about" class="hero-cta">Discover Our Mission</a>
+  </div>
+  <div class="hero-right">
+    <img src="statue.png" alt="Nataraja Statue"/>
+  </div>
+</section>
+
+<!-- ══ ABOUT: ORGANISATION ══ -->
+<section id="about">
+  <div class="container">
+    <p class="sec-eye">About Us</p>
+    <h2 class="sec-title">The Organisation</h2>
+    <div class="sec-rule"></div>
+    <div class="two-col">
+      <div class="img-frame right">
+        <img src="about.png" alt="About Us"/>
+      </div>
+      <div class="body-text">
+        <p>The Temple Dance Studio is a cultural initiative dedicated to reviving and illuminating India&#8217;s neglected and lesser-known temples through the transformative power of classical dance. Rooted in tradition and guided by purpose, our vision is to restore the spiritual, cultural, and historical significance of temple heritage that once stood as the foundation of Indian civilization.</p>
+        <p>We believe dance is not merely a performing art, but a sacred medium of expression &#8212; a way to preserve stories, convey devotion, and reconnect communities with their roots. Historically, temples were centers of education, art, philosophy, and social life. They nurtured knowledge systems that shaped generations.</p>
+        <p>In today&#8217;s rapidly evolving and mechanized educational environment, this profound connection between temples, arts, and learning is gradually fading. The Temple Dance Studio strives to bridge that gap by inspiring the younger generation to rediscover and embrace the cultural foundations from which Indian education and artistic traditions were born.</p>
+        <p>Through performances, training, outreach programs, and cultural initiatives, we aim to breathe new life into our heritage, restore pride in our ancestral legacy, and ensure that the timeless values of temple culture continue to inspire future generations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT: FOUNDER ══ -->
+<section id="founder">
+  <div class="container">
+    <p class="sec-eye">About Us</p>
+    <h2 class="sec-title">The Founder</h2>
+    <div class="sec-rule"></div>
+    <div class="founder-grid">
+      <div class="img-frame left">
+        <img src="founder.jpeg" alt="Himansee Katragadda"/>
+      </div>
+      <div class="ftext">
+        <h3 class="fname">Himansee Katragadda</h3>
+        <p class="ftag">B.Tech, LLB &nbsp;&middot;&nbsp; Founder &amp; Chairman</p>
+        <p>Himansee is the Founder and Chairman of The Temple Dance Organisation. A distinguished Kuchipudi artiste, educator, and cultural visionary, she is dedicated to preserving and reviving India&#8217;s temple heritage through the sacred art of classical dance.</p>
+        <p>She is a &#8216;B High&#8217; Grade Artiste of Doordarshan Kendra (2022). She has achieved national distinction having been honored by performing Kuchipudi at the 2011 January Republic Day Parade and at Kartavya Path, New Delhi, in the esteemed presence of the President and Prime Minister of India.</p>
+        <p>Her artistic journey includes performances at Ganga Mahotsav (2021), IIT Patna (2021), Nilatur Bhagavata Mela (2022), SAM Utsav (2022), Khajuraho Dance Festival (2023), Kalakruti (2023), Balamurali (2023), Thalamur Dance Festival (2023), and Natyanjali Chidambaram (2023). Internationally: Yuva Festival USA (2022), NATA Dallas (2022), TANA Philadelphia (2023), North Carolina USA, AKTA Singapore, Colombo Festival Sri Lanka, Lakshadweep Formation Day (2023), and TCI Festivals in Andaman &amp; Nicobar Islands.</p>
+        <p>An impassioned artiste of SPIC MACAY, she conducted Kuchipudi workshops for government school students in Vijayawada and Guntur. She served as Visiting Faculty at SRM University, AP, and was the youngest Jury Member for NCERT National Kala Utsav 2023 at YASHADA, Pune, organized by NCERT and the Ministry of Education.</p>
+        <div class="awards">
+          <span class="atag">Prathiba Award 2010</span>
+          <span class="atag">Yuva Nartaki-Ascharya 2021</span>
+          <span class="atag">Best Performer &amp; Teacher 2021</span>
+          <span class="atag">Sri Pada Memorial Award 2021</span>
+          <span class="atag">Best Inspiring Woman 2022</span>
+          <span class="atag">Shape Shakti 2022</span>
+          <span class="atag">Young Achiever 2022</span>
+          <span class="atag">Viswakavi Award 2022</span>
+          <span class="atag">Natya Sundari 2022</span>
+          <span class="atag">Gop Krishna Award 2023</span>
+          <span class="atag">Bala Priya 2023</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACTIVITIES ══ -->
+<section id="activities">
+  <div class="container">
+    <p class="sec-eye">What We Do</p>
+    <h2 class="sec-title">Activities</h2>
+    <div class="sec-rule"></div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('studio',this)">Dance Studio</button>
+      <button class="tab-btn" onclick="showTab('arts',this)">School of Fine Arts</button>
+      <button class="tab-btn" onclick="showTab('charity',this)">Charitable Trust</button>
+    </div>
+
+    <div id="tab-studio" class="panel active">
+      <p class="intro-p">The Temple Dance is trying its best to bring back those roots of education to the following generations and give a new life to our broken-down heritage and culture to the artistic sense of aspiration. We team by experienced, handled temples and made a shoot for dance videos with young promising dancers, documented it and submitted the file to the respective government departments, and with the help of social media, we publish the documentary so that it catches the eye of the people.</p>
+      <p class="intro-p" style="margin-bottom:40px">As a part of The Temple Dance Studio, we discovered <strong style="color:var(--gold-light)">15 Temples</strong> in Telangana, Andhra Pradesh, and Tamil Nadu states.</p>
+      <p class="sub-hdr">Temples We Discovered to Enlighten Today</p>
+      <ul class="temple-list">
+        <li>Kota Gullu Temple, Jata Shankar, Bhupalpally District</li>
+        <li>Mailama Swami Temple, Nivasulu &#8211; Venkateshwara Swami Temple, Warangal Fort</li>
+        <li>Rudreshwara Swami Temple, Chowkula &#8211; Tirumalayam, Khammam District</li>
+        <li>The Great Fort of Kondaveedu, Warangal Fort and Bhadrakali Temple, Warangal</li>
+        <li>The Kondapalli Fort &amp; Mukhya&#8211;Shivalayam in Ibrahimpatnam, Vijayawada District</li>
+        <li>Someshwara Temple, Kulsi</li>
+        <li>Pragyalayam, Akadampally Village</li>
+        <li>2000 Years Old Jain Temple, Bhupalpally, Khammam Village</li>
+        <li>The Great Fort of Kurikuntapally, Zaheerabad Fort</li>
+        <li>Gandla Gudi, Zaheerabad</li>
+        <li>Thukkachi Rajaswami Swami Temple, Thalamur</li>
+        <li>Anjaneya Swami Temple, Bhupalpally Village</li>
+        <li>Shivalayam, Amaravati</li>
+      </ul>
+      <div class="hi-boxes">
+        <div class="hi-box"><p>Kota Gullu Temple, Jata Shankar Temple was renovated for small needs by the help of villagers and public in 2022.</p></div>
+        <div class="hi-box"><p>The villagers and organizations together reconstructed Surya Ayam in Amaravati and gave birth to its old dates.</p></div>
+        <div class="hi-box"><p>We are preparing for Madhavam Temple to place the idol of Goddess Annapurna and bring it to limelight.</p></div>
+      </div>
+    </div>
+
+    <div id="tab-arts" class="panel">
+      <p class="intro-p">Established in 2018 by the visionary Kuchipudi exponent Himansee Katragadda, the School of Fine Arts is a premier center for classical arts dedicated to the holistic development of dancers, embracing three vital pillars of professional training.</p>
+      <div class="pillars">
+        <div class="pillar"><div class="p-icon">&#128131;</div><p class="p-name">Kuchipudi Dance</p><p class="p-desc">Rigorous technical training in Nritta, Nritya, and Natya &#8212; the three dimensions of classical Indian dance.</p></div>
+        <div class="pillar"><div class="p-icon">&#127925;</div><p class="p-name">Carnatic Music</p><p class="p-desc">Understanding Rhythm (Tala) and Melody (Raga) to enhance expressive performance and musicality.</p></div>
+        <div class="pillar"><div class="p-icon">&#129340;</div><p class="p-name">Yoga</p><p class="p-desc">Building the core strength, balance, and mental control required for high-stamina recitals and stage presence.</p></div>
+      </div>
+      <p class="sub-hdr">Major Milestones &amp; Performances</p>
+      <div class="mile-grid" style="margin-bottom:50px">
+        <div class="mile"><span><strong>Kuchipudi Dance Convocation</strong> &#8212; one of India&#8217;s most iconic heritage stages</span></div>
+        <div class="mile"><span><strong>2021 Lakshadweep Formation Day</strong> &#8212; cultural representation at a national event</span></div>
+        <div class="mile"><span><strong>2011 Republic Day Parade</strong> &#8212; cultural spectacle at Rajpath, New Delhi</span></div>
+        <div class="mile"><span><strong>2021 Raj Bhavan (T.S. &amp; A.P.)</strong> &#8212; performed for Governors of Telangana and Tamil Nadu</span></div>
+        <div class="mile"><span><strong>2021 SAM Utsav, Ayodhya</strong> &#8212; historic performance during sacred festivities</span></div>
+        <div class="mile"><span><strong>2022 SPIC MACAY</strong> &#8212; classical excellence at a global spiritual forum</span></div>
+        <div class="mile"><span><strong>2022 Kotappaconda &amp; 2023 Natyanjali Chidambaram</strong> &#8212; major temple festivals</span></div>
+        <div class="mile"><span><strong>2023 Thamarai Mani Lakshmi Utsavam</strong> &#8212; tradition in Tirupati, Andhra Pradesh</span></div>
+      </div>
+      <p class="sub-hdr">Excellence &amp; Academic Recognition</p>
+      <ul class="rec-list">
+        <li><strong>National Awards:</strong> Winners of AKTA, TANA, NATA, and NCERT National Kala Utsav</li>
+        <li><strong>Scholarships:</strong> CCRT Scholarship holders (Ministry of Culture, Govt. of India)</li>
+        <li><strong>Certifications:</strong> Distinction &amp; First Class in Kuchipudi Certificate and Diploma Examinations</li>
+        <li><strong>Elite Engagements:</strong> Performances at Raj Mahal Palace and 10th Anniversary of Shiva Shakti</li>
+      </ul>
+    </div>
+
+    <div id="tab-charity" class="panel">
+      <div class="charity-grid">
+        <div class="img-frame charity-f">
+          <img src="trust_1.jpg" alt="Charitable Trust" onerror="this.style.minHeight='300px';this.style.background='#1a1409'"/>
+        </div>
+        <div>
+          <p class="intro-p">The Temple Dance Charitable Trust widens their helping hand for the needy. Team Temple Dance encouraged dumb and deaf female orphans to learn Kuchipudi artform and gave opportunities for them to perform on various stages. The Temple Dance conducted Vande Mataram Online Dance Workshop and from collected registration fees, donated monies to the families of villagers of Kondur in Mulugu District where the village was totally drowned due to heavy floods and rainfall.</p>
+          <ul class="ch-pts">
+            <li>The Temple Dance conducted Kuchipudi Dance Workshops in association with SPIC MACAY in Govt. schools to make students understand Indian classical dance artforms and make it reach all corners.</li>
+            <li>The Temple Dance taught Kuchipudi to dumb &amp; deaf girls and gave opportunity to perform on Independence Day, Republic Day, and Children&#8217;s Day &#8212; documented to prove impaired people are no less than normal human beings.</li>
+            <li>The Temple Dance donated groceries to flood affected villages in Mulugu District and in Khammam District.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LEGENDARY TALKS ══ -->
+<section id="talks">
+  <div class="container">
+    <p class="sec-eye">Endorsements</p>
+    <h2 class="sec-title">Legendary Talks</h2>
+    <div class="sec-rule"></div>
+    <div class="talks-img">
+      <img src="legend.jpg" alt="Legendary Talks" onerror="this.style.minHeight='260px';this.style.background='#1a1409'"/>
+    </div>
+    <div class="quotes-grid">
+      <div class="q-card">
+        <p class="q-text">&#8220;Every one care about the temples which are existing, no one thinks about the temples which are broken and dilapidated. I am Himansee have become the voice of Such Temples. May God Bless her.&#8221;</p>
+        <p class="q-author">Kalatapaswi K Vishwanath Garu</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">&#8220;If a Temple is Dilapidated, we are the reason. It is our negligence. Himansee is the remedy. I wish the Temple Dance all the best.&#8221;</p>
+        <p class="q-author">SiriVennela Seetharama Sastry Garu</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">&#8220;This initiative is strongest pillar for our Indian Traditions, Heritage, Culture and Ithihasas. I wish The Temple Dance Team. All the Best.&#8221;</p>
+        <p class="q-author">Maestro Ilayaraja Garu</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">&#8220;It&#8217;s a Cultural Revolution. I will be certainly backing this project. This is for us as well as for the Government. I wish Himansee and her Team All the best.&#8221;</p>
+        <p class="q-author">Tanikella Bharani Garu</p>
+      </div>
+      <div class="q-card" style="grid-column:1/-1;max-width:600px;margin:0 auto">
+        <p class="q-text">&#8220;As an Union Minister, I feel it is my duty to support an initiative like &#8216;The Temple Dance&#8217;. One Day, India will definitely be proud of this.&#8221;</p>
+        <p class="q-author">G. Kishan Reddy Garu</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY ══ -->
+<section id="gallery">
+  <div class="container">
+    <p class="sec-eye">Visuals</p>
+    <h2 class="sec-title">Gallery &amp; Links</h2>
+    <div class="sec-rule"></div>
+    <div class="gal-grid">
+      <div class="gal-item"><img src="gallery1.jpg" alt="Gallery 1" onerror="this.style.background='#1a1409'"/></div>
+      <div class="gal-item"><img src="gallery2.jpg" alt="Gallery 2" onerror="this.style.background='#1a1409'"/></div>
+      <div class="gal-item"><img src="gallery3.jpg" alt="Gallery 3" onerror="this.style.background='#1a1409'"/></div>
+      <div class="gal-item"><img src="gallery4.jpg" alt="Gallery 4" onerror="this.style.background='#1a1409'"/></div>
+      <div class="gal-item"><img src="gallery5.jpg" alt="Gallery 5" onerror="this.style.background='#1a1409'"/></div>
+      <div class="gal-item"><img src="gallery6.jpg" alt="Gallery 6" onerror="this.style.background='#1a1409'"/></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="container">
+    <p class="sec-eye">Reach Us</p>
+    <h2 class="sec-title">Contact Us</h2>
+    <div class="sec-rule"></div>
+    <div class="contact-grid">
+      <div class="img-frame contact-f">
+        <img src="contact.png" alt="Contact" onerror="this.style.minHeight='400px';this.style.background='#1a1409'"/>
+      </div>
+      <div>
+        <p class="c-enq">For The Temple Dance Shoot Enquiries &nbsp;|&nbsp; Dance, Music &amp; Yoga Classes Related Enquiries &nbsp;|&nbsp; Any Other Queries</p>
+        <p class="c-label">Call Us</p>
+        <p class="c-val"><a href="tel:+918106552106">+91 8106552106</a></p>
+        <p class="c-label">Email Us</p>
+        <p class="c-val"><a href="mailto:thetempledance@gmail.com">thetempledance@gmail.com</a></p>
+        <p class="c-label">Address</p>
+        <p class="c-val">#B-1, 1st Floor, Shiva Residency,<br/>Advocates Colony, Balasamudram,<br/>Hanamkonda, Warangal Urban &#8211; 506001</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <img class="f-logo" src="logo.jpeg" alt="The Temple Dance Logo"/>
+  <p class="f-title">The Temple Dance</p>
+  <div class="f-rule"></div>
+  <p class="f-copy">&copy; 2024 The Temple Dance &nbsp;&middot;&nbsp; All Rights Reserved</p>
+</footer>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    document.querySelectorAll('section[id]').forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--gold)' : ''; });
+  });
+</script>
+</body>
+</html>
