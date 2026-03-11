@@ -236,14 +236,136 @@
     .body-text p{color:var(--text-muted);font-size:15.5px;line-height:2;margin-bottom:22px;letter-spacing:.3px}
     .body-text p:last-child{margin-bottom:0}
 
-    /* ══ FOUNDER ══ */
-    #founder{background:var(--dark-alt)}
-    .founder-grid{display:grid;grid-template-columns:340px 1fr;gap:70px;align-items:start}
-    .fname{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--gold-light);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
-    .ftag{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;opacity:.85}
-    .ftext p{color:var(--text-muted);font-size:15px;line-height:1.95;margin-bottom:18px}
-    .awards{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
-    .atag{font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-dark);border:1px solid var(--border-gold);padding:5px 12px;background:rgba(201,168,76,.06)}
+    /* ══ FOUNDER LAYOUT ══ */
+    #founder{
+      background:var(--dark-alt);
+      position:relative;
+    }
+
+    .founder-grid{
+      display:grid;
+      grid-template-columns:340px 1fr;
+      gap:70px;
+      align-items:stretch;      /* match heights between left & right */
+    }
+
+    /* Slider container = fixed ratio box that follows text height */
+    .img-frame.left.founder-slider{
+      position:relative;
+      overflow:hidden;
+      border-radius:4px;
+    }
+
+    /* Let the frame grow with the text, but cap min/max height */
+    @media (min-width:901px){
+      .img-frame.left.founder-slider{
+        min-height:360px;       /* enough to look like a portrait */
+        max-height:520px;       /* prevents super tall vertical box */
+      }
+    }
+
+    /* Track with sliding images */
+    .founder-track{
+      position:absolute;
+      inset:0;
+      display:flex;
+      width:500%;              /* 5 slides */
+      height:100%;
+      animation:founderSlide 10s infinite;
+    }
+
+    /* Each image fills the frame and keeps center crop */
+    .founder-track img{
+      flex:0 0 20%;
+      width:20%;
+      height:100%;
+      object-fit:cover;        /* keeps proportion, crops overflow */
+      object-position:center;
+      display:block;
+      filter:sepia(8%) contrast(1.05);
+    }
+
+    /* Text (unchanged) */
+    .fname{
+      font-family:'Cinzel',serif;
+      font-size:22px;
+      font-weight:700;
+      color:var(--gold-light);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+    .ftag{
+      font-family:'Cinzel',serif;
+      font-size:12px;
+      font-weight:600;
+      color:var(--gold);
+      letter-spacing:3px;
+      text-transform:uppercase;
+      margin-bottom:28px;
+      opacity:.85;
+    }
+    .ftext p{
+      color:var(--text-muted);
+      font-size:15px;
+      line-height:1.95;
+      margin-bottom:18px;
+    }
+    .awards{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:24px;
+    }
+    .atag{
+      font-family:'Cinzel',serif;
+      font-size:10px;
+      font-weight:600;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      color:var(--gold-dark);
+      border:1px solid var(--border-gold);
+      padding:5px 12px;
+      background:rgba(201,168,76,.06);
+    }
+
+    /* Slider keyframes */
+    @keyframes founderSlide{
+      0%   { transform:translateX(0%); }
+      16%  { transform:translateX(0%); }
+
+      20%  { transform:translateX(-20%); }
+      36%  { transform:translateX(-20%); }
+
+      40%  { transform:translateX(-40%); }
+      56%  { transform:translateX(-40%); }
+
+      60%  { transform:translateX(-60%); }
+      76%  { transform:translateX(-60%); }
+
+      80%  { transform:translateX(-80%); }
+      96%  { transform:translateX(-80%); }
+
+      100% { transform:translateX(0%); }
+    }
+
+    /* Pause on hover */
+    .founder-slider:hover .founder-track{
+      animation-play-state:paused;
+    }
+
+    /* Responsive stack on mobile */
+    @media(max-width:900px){
+      .founder-grid{
+        grid-template-columns:1fr;
+        gap:40px;
+      }
+      .img-frame.left.founder-slider{
+        min-height:260px;
+        max-height:none;
+      }
+    }
+
 
     /* ══ ACTIVITIES ══ */
     #activities{background:var(--dark-section)}
@@ -294,13 +416,167 @@
     .q-author::before{content:'— '}
 
     /* ══ GALLERY ══ */
-    #gallery{background:var(--dark-section)}
-    .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,260px);gap:14px}
-    .gal-item{overflow:hidden;position:relative;cursor:pointer}
-    .gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s,filter .4s;filter:sepia(10%) brightness(.88)}
-    .gal-item:hover img{transform:scale(1.07);filter:none}
-    .gal-item::after{content:'';position:absolute;inset:0;border:2px solid transparent;transition:border-color .3s}
-    .gal-item:hover::after{border-color:var(--gold)}
+    #gallery{
+      background: var(--dark-section);
+      position: relative;
+    }
+
+    .gal-tabs{
+      display:flex;
+      border:1px solid var(--border-gold);
+      margin-bottom:32px;
+      flex-wrap:wrap;
+    }
+
+    .gal-tab-btn{
+      flex:1;
+      min-width:180px;
+      padding:14px 18px;
+      font-family:'Cinzel', serif;
+      font-size:11px;
+      font-weight:600;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:var(--text-muted);
+      background:rgba(0,0,0,0.35);
+      border:none;
+      border-right:1px solid var(--border-gold);
+      cursor:pointer;
+      transition:all .2s ease;
+    }
+
+    .gal-tab-btn:last-child{
+      border-right:none;
+    }
+
+    .gal-tab-btn:hover,
+    .gal-tab-btn.active{
+      color:var(--dark-bg);
+      background:linear-gradient(135deg,var(--gold-light),var(--gold));
+    }
+
+    .gal-panel{
+      display:none;
+      width:100%;
+    }
+
+    .gal-panel.active{
+      display:block;
+    }
+
+    .gal-scroll{
+      max-height:78vh;
+      overflow-y:auto;
+      overflow-x:hidden;
+      padding-right:6px;
+      scrollbar-width:thin;
+      scrollbar-color:var(--gold-dark) rgba(255,255,255,0.05);
+      content-visibility:auto;
+      contain-intrinsic-size:1000px;
+    }
+
+    .gal-scroll::-webkit-scrollbar{
+      width:7px;
+    }
+
+    .gal-scroll::-webkit-scrollbar-track{
+      background:rgba(255,255,255,0.05);
+    }
+
+    .gal-scroll::-webkit-scrollbar-thumb{
+      background:linear-gradient(var(--gold), var(--gold-dark));
+      border-radius:20px;
+    }
+
+    .gal-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .gal-item{
+      width:100%;
+      height:220px;
+      overflow:hidden;
+      background:#120e08;
+      border:1px solid rgba(201,168,76,0.16);
+      position:relative;
+      content-visibility:auto;
+      contain-intrinsic-size:220px;
+    }
+
+    .gal-item img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform .2s ease;
+    }
+
+    .gal-item:hover img{
+      transform:scale(1.02);
+    }
+
+    .gal-item::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      border:1px solid transparent;
+      transition:border-color .2s ease;
+      pointer-events:none;
+    }
+
+    .gal-item:hover::after{
+      border-color:var(--gold);
+    }
+
+    @media (max-width:1100px){
+      .gal-grid{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
+      .gal-item{
+        height:210px;
+      }
+    }
+
+    @media (max-width:700px){
+      .gal-scroll{
+        max-height:68vh;
+      }
+
+      .gal-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:10px;
+      }
+
+      .gal-item{
+        height:180px;
+      }
+
+      .gal-tab-btn{
+        min-width:100%;
+        border-right:none;
+        border-bottom:1px solid var(--border-gold);
+      }
+
+      .gal-tab-btn:last-child{
+        border-bottom:none;
+      }
+    }
+
+    @media (max-width:480px){
+      .gal-grid{
+        grid-template-columns:1fr;
+      }
+
+      .gal-item{
+        height:220px;
+      }
+    }
+
+
+
+
 
     /* ══ CONTACT ══ */
     #contact{background:var(--dark-alt)}
@@ -401,9 +677,16 @@
     <h2 class="sec-title">The Founder</h2>
     <div class="sec-rule"></div>
     <div class="founder-grid">
-      <div class="img-frame left">
-        <img src="founder.jpeg" alt="Himansee Katragadda"/>
+      <div class="img-frame left founder-slider">
+        <div class="founder-track">
+          <img src="founder1.jpeg" alt="Himansee Katragadda 1"/>
+          <img src="founder2.jpg" alt="Himansee Katragadda 2"/>
+          <img src="founder3.jpg" alt="Himansee Katragadda 3"/>
+          <img src="founder4.jpg" alt="Himansee Katragadda 4"/>
+          <img src="founder5.jpg" alt="Himansee Katragadda 5"/>
+        </div>
       </div>
+
       <div class="ftext">
         <h3 class="fname">Himansee Katragadda</h3>
         <p class="ftag">B.Tech, LLB &nbsp;&middot;&nbsp; Founder &amp; Chairman</p>
@@ -498,6 +781,7 @@
       <div class="charity-grid">
         <div class="img-frame charity-f">
           <img src="trust_1.jpg" alt="Charitable Trust" onerror="this.style.minHeight='300px';this.style.background='#1a1409'"/>
+          <img src="trust_3.jpg" alt="Charitable Trust" onerror="this.style.minHeight='300px';this.style.background='#1a1409'"/>
         </div>
         <div>
           <p class="intro-p">The Temple Dance Charitable Trust widens their helping hand for the needy. Team Temple Dance encouraged dumb and deaf female orphans to learn Kuchipudi artform and gave opportunities for them to perform on various stages. The Temple Dance conducted Vande Mataram Online Dance Workshop and from collected registration fees, donated monies to the families of villagers of Kondur in Mulugu District where the village was totally drowned due to heavy floods and rainfall.</p>
@@ -559,19 +843,121 @@
   </div>
 </section>
 
-<!-- ══ GALLERY ══ -->
+<!-- ══════════════════════════════════════
+     GALLERY SECTION
+══════════════════════════════════════ -->
 <section id="gallery">
   <div class="container">
     <p class="sec-eye">Visuals</p>
     <h2 class="sec-title">Gallery &amp; Links</h2>
     <div class="sec-rule"></div>
-    <div class="gal-grid">
-      <div class="gal-item"><img src="gallery1.jpg" alt="Gallery 1" onerror="this.style.background='#1a1409'"/></div>
-      <div class="gal-item"><img src="gallery2.jpg" alt="Gallery 2" onerror="this.style.background='#1a1409'"/></div>
-      <div class="gal-item"><img src="gallery3.jpg" alt="Gallery 3" onerror="this.style.background='#1a1409'"/></div>
-      <div class="gal-item"><img src="gallery4.jpg" alt="Gallery 4" onerror="this.style.background='#1a1409'"/></div>
-      <div class="gal-item"><img src="gallery5.jpg" alt="Gallery 5" onerror="this.style.background='#1a1409'"/></div>
-      <div class="gal-item"><img src="gallery6.jpg" alt="Gallery 6" onerror="this.style.background='#1a1409'"/></div>
+
+    <!-- Gallery Tabs -->
+    <div class="gal-tabs">
+      <button class="gal-tab-btn active" onclick="showGalleryTab('finearts', this)">School of Fine Arts</button>
+      <button class="gal-tab-btn" onclick="showGalleryTab('muvvala', this)">Muvvala Pooja</button>
+      <button class="gal-tab-btn" onclick="showGalleryTab('studio', this)">Dance Studio</button>
+      <button class="gal-tab-btn" onclick="showGalleryTab('institute', this)">Institute</button>
+      <button class="gal-tab-btn" onclick="showGalleryTab('articles', this)">Articles</button>
+    </div>
+
+    <!-- TAB: SCHOOL OF FINE ARTS -->
+    <div id="gal-finearts" class="gal-panel active">
+      <div class="gal-scroll">
+        <div class="gal-grid">
+          <div class="gal-item"><img src="finearts-1 (1).jpg" width="400" height="300" alt="Fine Arts 1" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (2).jpg" width="400" height="300" alt="Fine Arts 2" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (3).jpg" width="400" height="300" alt="Fine Arts 3" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (4).jpg" width="400" height="300" alt="Fine Arts 4" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (6).jpg" width="400" height="300" alt="Fine Arts 6" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (7).jpg" width="400" height="300" alt="Fine Arts 7" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (8).jpg" width="400" height="300" alt="Fine Arts 8" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (9).jpg" width="400" height="300" alt="Fine Arts 9" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (10).jpg" width="400" height="300" alt="Fine Arts 10" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (11).jpg" width="400" height="300" alt="Fine Arts 11" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (12).jpg" width="400" height="300" alt="Fine Arts 12" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (13).jpg" width="400" height="300" alt="Fine Arts 13" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (14).jpg" width="400" height="300" alt="Fine Arts 14" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (15).jpg" width="400" height="300" alt="Fine Arts 15" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (16).jpg" width="400" height="300" alt="Fine Arts 16" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (17).jpg" width="400" height="300" alt="Fine Arts 17" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (18).jpg" width="400" height="300" alt="Fine Arts 18" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (19).jpg" width="400" height="300" alt="Fine Arts 19" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (20).jpg" width="400" height="300" alt="Fine Arts 20" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="finearts-1 (21).jpg" width="400" height="300" alt="Fine Arts 21" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: MUVVALA POOJA -->
+    <div id="gal-muvvala" class="gal-panel">
+      <div class="gal-scroll">
+        <div class="gal-grid">
+          <div class="gal-item"><img src="muvvala (1).jpg" width="400" height="300" alt="Muvvala Pooja 1" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="muvvala (2).jpg" width="400" height="300" alt="Muvvala Pooja 2" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="muvvala (3).jpg" width="400" height="300" alt="Muvvala Pooja 3" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: DANCE STUDIO -->
+    <div id="gal-studio" class="gal-panel">
+      <div class="gal-scroll">
+        <div class="gal-grid">
+          <div class="gal-item"><img src="studio (1).jpg"  alt="Dance Studio 1" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="studio (3).jpg"  alt="Dance Studio 3" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="studio (4).jpg"  alt="Dance Studio 4" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="studio (5).jpg"  alt="Dance Studio 5" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: INSTITUTE -->
+    <div id="gal-institute" class="gal-panel">
+      <div class="gal-scroll">
+        <div class="gal-grid">
+          <div class="gal-item"><img src="institute (1).jpg"  alt="Institute 1" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (2).jpg"  alt="Institute 2" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (3).jpg"  alt="Institute 3" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (4).jpg"  alt="Institute 4" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (5).jpg"  alt="Institute 5" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (6).jpg"  alt="Institute 6" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (7).jpg"  alt="Institute 7" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (8).jpg"  alt="Institute 8" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (9).jpg"  alt="Institute 9" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (10).jpg"  alt="Institute 10" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (11).jpg"  alt="Institute 11" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (12).jpg"  alt="Institute 12" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (13).jpg"  alt="Institute 13" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (14).jpg"  alt="Institute 14" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (15).jpg"  alt="Institute 15" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (16).jpg"  alt="Institute 16" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (17).jpg"  alt="Institute 17" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (18).jpg"  alt="Institute 18" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (19).jpg"  alt="Institute 19" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (20).jpg"  alt="Institute 20" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (21).jpg"  alt="Institute 21" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (22).jpg"  alt="Institute 22" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (23).jpg"  alt="Institute 23" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (24).jpg"  alt="Institute 24" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (25).jpg"  alt="Institute 25" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="institute (26).jpg"  alt="Institute 26" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: ARTICLES -->
+    <div id="gal-articles" class="gal-panel">
+      <div class="gal-scroll">
+        <div class="gal-grid">
+          <div class="gal-item"><img src="article (1).jpg"  alt="Article 1" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="article (3).jpg"  alt="Article 3" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="article (6).jpg"  alt="Article 6" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="article (7).jpg"  alt="Article 7" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="article (8).jpg"  alt="Article 8" loading="lazy" decoding="async"></div>
+          <div class="gal-item"><img src="article (9).jpg"  alt="Article 9" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -583,9 +969,6 @@
     <h2 class="sec-title">Contact Us</h2>
     <div class="sec-rule"></div>
     <div class="contact-grid">
-      <div class="img-frame contact-f">
-        <img src="contact.png" alt="Contact" onerror="this.style.minHeight='400px';this.style.background='#1a1409'"/>
-      </div>
       <div>
         <p class="c-enq">For The Temple Dance Shoot Enquiries &nbsp;|&nbsp; Dance, Music &amp; Yoga Classes Related Enquiries &nbsp;|&nbsp; Any Other Queries</p>
         <p class="c-label">Call Us</p>
@@ -594,6 +977,9 @@
         <p class="c-val"><a href="mailto:thetempledance@gmail.com">thetempledance@gmail.com</a></p>
         <p class="c-label">Address</p>
         <p class="c-val">101, 1st Floor, Shrika Residency,<br/>Advocates Colony, Balasamudram,<br/>Hanumakonda, Warangal Urban &#8211; 506001</p>
+      </div>
+      <div class="img-frame contact-f">
+        <img src="contact.png" alt="Contact" onerror="this.style.minHeight='400px';this.style.background='#1a1409'"/>
       </div>
     </div>
   </div>
@@ -608,17 +994,21 @@
 </footer>
 
 <script>
-  function showTab(id, btn) {
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + id).classList.add('active');
+  function showGalleryTab(name, btn){
+    document.querySelectorAll('.gal-panel').forEach(function(panel){
+      panel.classList.remove('active');
+    });
+
+    document.querySelectorAll('.gal-tab-btn').forEach(function(button){
+      button.classList.remove('active');
+    });
+
+    document.getElementById('gal-' + name).classList.add('active');
     btn.classList.add('active');
   }
-  window.addEventListener('scroll', () => {
-    let cur = '';
-    document.querySelectorAll('section[id]').forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
-    document.querySelectorAll('.nav-links a').forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--gold)' : ''; });
-  });
 </script>
+
+
+
 </body>
 </html>
