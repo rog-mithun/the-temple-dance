@@ -404,16 +404,120 @@
     .ch-pts li::before{content:'●';position:absolute;left:0;color:var(--gold);font-size:8px;top:20px}
 
     /* ══ TALKS ══ */
-    #talks{background:var(--dark-alt)}
-    .talks-img{max-width:700px;margin:0 auto 70px;position:relative}
-    .talks-img::before{content:'';position:absolute;inset:-8px;border:1px solid var(--border-gold);pointer-events:none}
-    .talks-img img{width:100%;display:block}
-    .quotes-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
-    .q-card{border:1px solid var(--border-gold);padding:36px 30px;background:rgba(201,168,76,.03);position:relative;overflow:hidden}
-    .q-card::before{content:'\201C';font-family:'Cinzel Decorative',serif;font-size:120px;color:rgba(201,168,76,.06);line-height:1;position:absolute;top:-10px;left:16px;pointer-events:none}
-    .q-text{font-size:15px;color:var(--text-muted);font-style:italic;line-height:1.95;margin-bottom:20px;position:relative;z-index:1}
-    .q-author{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase}
-    .q-author::before{content:'— '}
+    /* ══ TALKS ══ */
+    #talks{
+      background:var(--dark-alt);
+    }
+
+    /* Big horizontal image wrapper */
+    .talks-img{
+      width:100%;
+      max-width:1200px;
+      margin:0 auto 70px;
+      position:relative;
+      padding:14px;
+      border:1px solid rgba(201,168,76,.25);
+      background:rgba(0,0,0,.28);
+    }
+
+    
+
+    /* Fixed horizontal display area */
+    .talks-img-inner{
+      width:100%;
+      min-height:420px;
+      max-height:700px;
+      height:58vw;
+      aspect-ratio:16 / 9;
+      background:#0b0805;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* Show full image nicely inside horizontal area */
+    .talks-img img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:contain;   /* use 'cover' if you want edge-to-edge crop */
+      object-position:center;
+    }
+
+    /* Quotes */
+    .quotes-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+    }
+
+    .q-card{
+      border:1px solid var(--border-gold);
+      padding:36px 30px;
+      background:rgba(201,168,76,.03);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .q-card::before{
+      content:'\201C';
+      font-family:'Cinzel Decorative',serif;
+      font-size:120px;
+      color:rgba(201,168,76,.06);
+      line-height:1;
+      position:absolute;
+      top:-10px;
+      left:16px;
+      pointer-events:none;
+    }
+
+    .q-text{
+      font-size:15px;
+      color:var(--text-muted);
+      font-style:italic;
+      line-height:1.95;
+      margin-bottom:20px;
+      position:relative;
+      z-index:1;
+    }
+
+    .q-author{
+      font-family:'Cinzel',serif;
+      font-size:12px;
+      font-weight:600;
+      color:var(--gold);
+      letter-spacing:2px;
+      text-transform:uppercase;
+    }
+
+    .q-author::before{
+      content:'— ';
+    }
+
+    @media (max-width:900px){
+      .talks-img{
+        margin:0 auto 50px;
+        padding:10px;
+      }
+
+      .talks-img-inner{
+        min-height:260px;
+        height:52vw;
+      }
+
+      .quotes-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:600px){
+      .talks-img-inner{
+        min-height:200px;
+        height:56vw;
+      }
+    }
+
 
     /* ══ GALLERY ══ */
     #gallery{
@@ -587,6 +691,67 @@
     .c-val a{color:var(--gold-light);text-decoration:none}
     .c-val a:hover{color:var(--gold);text-decoration:underline}
     .c-enq{font-size:14px;color:var(--text-muted);line-height:1.9;margin-bottom:36px;font-style:italic}
+    /* Social icons */
+    .social-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .social-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 18px;
+      text-decoration:none;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.08);
+      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+      font-family:'Cinzel',serif;
+      font-size:11px;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+    }
+
+    .social-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 22px rgba(0,0,0,.25);
+      opacity:.95;
+    }
+
+    .social-icon{
+      width:24px;
+      height:24px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      background:rgba(255,255,255,.15);
+      font-size:14px;
+      font-weight:700;
+      line-height:1;
+    }
+
+    /* Platform styles */
+    .social-btn.instagram{
+      background:linear-gradient(135deg,#405DE6,#833AB4,#C13584,#E1306C,#F56040,#FCAF45);
+    }
+
+    .social-btn.facebook{
+      background:#4267B2;
+    }
+
+    .social-btn.youtube{
+      background:#FF0000;
+    }
+
+    @media(max-width:900px){
+      .contact-grid{
+        grid-template-columns:1fr;
+        gap:40px;
+      }
+    }
 
     /* ══ FOOTER ══ */
     footer{background:#080604;border-top:1px solid var(--border-gold);padding:50px 40px;text-align:center}
@@ -802,46 +967,17 @@
     <p class="sec-eye">Endorsements</p>
     <h2 class="sec-title">Legendary Talks</h2>
     <div class="sec-rule"></div>
-    
-    <div class="quotes-grid">
-      <div class="q-card">
-        <div class="talks-img">
-          <img src="legend2.jpg" alt="Legendary Talks" onerror="this.style.minHeight='260px';this.style.background='#1a1409'"/>
+
+    <div class="talks-wrap">
+      <div class="talks-img">
+        <div class="talks-img-inner">
+          <img src="legend1.png" alt="Legendary Talks">
         </div>
-        <p class="q-text">&#8220;Every one care about the temples which are existing, no one thinks about the temples which are broken and dilapidated. I am Himansee have become the voice of Such Temples. May God Bless her.&#8221;</p>
-        <p class="q-author">Kalatapaswi K Vishwanath Garu</p>
-      </div>
-      <div class="q-card">
-        <div class="talks-img">
-          <img src="legend3.jpg" alt="Legendary Talks" onerror="this.style.minHeight='260px';this.style.background='#1a1409'"/>
-        </div>
-        <p class="q-text">&#8220;If a Temple is Dilapidated, we are the reason. It is our negligence. Himansee is the remedy. I wish the Temple Dance all the best.&#8221;</p>
-        <p class="q-author">SiriVennela Seetharama Sastry Garu</p>
-      </div>
-      <div class="q-card">
-        <div class="talks-img">
-          <img src="legend4.jpg" alt="Legendary Talks" onerror="this.style.minHeight='260px';this.style.background='#1a1409'"/>
-        </div>
-        <p class="q-text">&#8220;This initiative is strongest pillar for our Indian Traditions, Heritage, Culture and Ithihasas. I wish The Temple Dance Team. All the Best.&#8221;</p>
-        <p class="q-author">Maestro Ilayaraja Garu</p>
-      </div>
-      <div class="q-card">
-        <div class="talks-img">
-          <img src="legend1.jpg" alt="Legendary Talks" onerror="this.style.minHeight='260px';this.style.background='#1a1409'"/>
-        </div>
-        <p class="q-text">&#8220;As an Union Minister, I feel it is my duty to support an initiative like &#8216;The Temple Dance&#8217;. One Day, India will definitely be proud of this.&#8221;</p>
-        <p class="q-author">G. Kishan Reddy Garu</p>
-      </div>
-      <div class="q-card" style="grid-column:1/-1;max-width:600px;margin:0 auto">
-        <div class="talks-img">
-          <img src="legend5.jpg" alt="Legendary Talks" onerror="this.style.minHeight='260px';this.style.background='#1a1409'"/>
-        </div>
-        <p class="q-text">&#8220;It&#8217;s a Cultural Revolution. I will be certainly backing this project. This is for us as well as for the Government. I wish Himansee and her Team All the best.&#8221;</p>
-        <p class="q-author">Tanikella Bharani Garu</p>
       </div>
     </div>
   </div>
 </section>
+
 
 <!-- ══════════════════════════════════════
      GALLERY SECTION
@@ -968,22 +1104,58 @@
     <p class="sec-eye">Reach Us</p>
     <h2 class="sec-title">Contact Us</h2>
     <div class="sec-rule"></div>
+
     <div class="contact-grid">
       <div>
-        <p class="c-enq">For The Temple Dance Shoot Enquiries &nbsp;|&nbsp; Dance, Music &amp; Yoga Classes Related Enquiries &nbsp;|&nbsp; Any Other Queries</p>
+        <p class="c-enq">
+          For The Temple Dance Shoot Enquiries &nbsp;|&nbsp;
+          Dance, Music &amp; Yoga Classes Related Enquiries &nbsp;|&nbsp;
+          Any Other Queries
+        </p>
+
         <p class="c-label">Call Us</p>
-        <p class="c-val"><a href="tel:+918106552106">+91 8106552106</a></p>
+        <p class="c-val">
+          <a href="tel:+918106552106">+91 8106552106</a>
+        </p>
+
         <p class="c-label">Email Us</p>
-        <p class="c-val"><a href="mailto:thetempledance@gmail.com">thetempledance@gmail.com</a></p>
+        <p class="c-val">
+          <a href="mailto:thetempledance@gmail.com">thetempledance@gmail.com</a>
+        </p>
+
         <p class="c-label">Address</p>
-        <p class="c-val">101, 1st Floor, Shrika Residency,<br/>Advocates Colony, Balasamudram,<br/>Hanumakonda, Warangal Urban &#8211; 506001</p>
+        <p class="c-val">
+          101, 1st Floor, Shrika Residency,<br>
+          Advocates Colony, Balasamudram,<br>
+          Hanumakonda, Warangal Urban &#8211; 506001
+        </p>
+
+        <p class="c-label">Follow Us</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/the.templedance?igsh=MXgybDJxcDNoMGJwMg==" target="_blank" rel="noopener noreferrer" class="social-btn instagram" aria-label="Instagram">
+            <span class="social-icon">⌾</span>
+            <span>Instagram</span>
+          </a>
+
+          <a href="https://www.facebook.com/share/17PKGvPhiV/" target="_blank" rel="noopener noreferrer" class="social-btn facebook" aria-label="Facebook">
+            <span class="social-icon">f</span>
+            <span>Facebook</span>
+          </a>
+
+          <a href="https://youtube.com/@thetempledance?si=xwnmcvTEpUEEwpUO" target="_blank" rel="noopener noreferrer" class="social-btn youtube" aria-label="YouTube">
+            <span class="social-icon">▶</span>
+            <span>YouTube</span>
+          </a>
+        </div>
       </div>
+
       <div class="img-frame contact-f">
         <img src="contact.png" alt="Contact" onerror="this.style.minHeight='400px';this.style.background='#1a1409'"/>
       </div>
     </div>
   </div>
 </section>
+
 
 <!-- ══ FOOTER ══ -->
 <footer>
@@ -994,19 +1166,58 @@
 </footer>
 
 <script>
-  function showGalleryTab(name, btn){
-    document.querySelectorAll('.gal-panel').forEach(function(panel){
+  function showTab(id, btn){
+    document.querySelectorAll('#activities .panel').forEach(function(panel){
       panel.classList.remove('active');
     });
 
-    document.querySelectorAll('.gal-tab-btn').forEach(function(button){
+    document.querySelectorAll('#activities .tab-btn').forEach(function(button){
       button.classList.remove('active');
     });
 
-    document.getElementById('gal-' + name).classList.add('active');
-    btn.classList.add('active');
+    var target = document.getElementById('tab-' + id);
+    if (target) {
+      target.classList.add('active');
+    }
+
+    if (btn) {
+      btn.classList.add('active');
+    }
   }
+
+  function showGalleryTab(name, btn){
+    document.querySelectorAll('#gallery .gal-panel').forEach(function(panel){
+      panel.classList.remove('active');
+    });
+
+    document.querySelectorAll('#gallery .gal-tab-btn').forEach(function(button){
+      button.classList.remove('active');
+    });
+
+    var target = document.getElementById('gal-' + name);
+    if (target) {
+      target.classList.add('active');
+    }
+
+    if (btn) {
+      btn.classList.add('active');
+    }
+  }
+
+  window.addEventListener('scroll', function(){
+    var cur = '';
+    document.querySelectorAll('section[id]').forEach(function(section){
+      if (window.scrollY >= section.offsetTop - 100) {
+        cur = section.id;
+      }
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(function(link){
+      link.style.color = link.getAttribute('href') === '#' + cur ? 'var(--gold)' : '';
+    });
+  });
 </script>
+
 
 
 
