@@ -257,10 +257,11 @@
     }
 
     /* Let the frame grow with the text, but cap min/max height */
-    @media (min-width:901px){
+    @media (max-width:901px){
       .img-frame.left.founder-slider{
-        min-height:360px;       /* enough to look like a portrait */
-        max-height:520px;       /* prevents super tall vertical box */
+        min-height:420px;       /* enough to look like a portrait */
+        max-height:none;
+        height: 75vw;       /* prevents super tall vertical box */
       }
     }
 
@@ -360,8 +361,9 @@
         gap:40px;
       }
       .img-frame.left.founder-slider{
-        min-height:260px;
+        min-height:460px;
         max-height:none;
+        height: 75vw;
       }
     }
 
